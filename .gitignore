@@ -14,9 +14,6 @@ dist/
 # Ignore compiled class files
 *.class
 
-# Ignore jar files
-*.jar
-
 # Ignore project configuration files
 *.iml
 *.iws
