@@ -1,0 +1,32 @@
+# NetBeans specific files
+.nb-gradle/
+build/
+nbproject/private/
+nbbuild/
+dist/
+*.log
+
+# Ignore IDE-specific files
+*.swp
+*~
+*.bak
+
+# Ignore compiled class files
+*.class
+
+# Ignore jar files
+*.jar
+
+# Ignore project configuration files
+*.iml
+*.iws
+.idea/
+
+# Ignore Maven and Gradle directories (if applicable)
+target/
+*.war
+*.ear
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
