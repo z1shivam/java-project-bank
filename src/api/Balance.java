@@ -14,7 +14,6 @@ public class Balance {
                 throw new IllegalArgumentException("Account number is not available in environment variables.");
             }
 
-            // Query to fetch the latest balance for the account
             String fetchBalanceQuery = 
                 "SELECT balance FROM tr WHERE accountNumber = ? ORDER BY tdate DESC, transactionId DESC LIMIT 1";
 
@@ -29,7 +28,7 @@ public class Balance {
             }
         } catch (SQLException | IllegalArgumentException err) {
             System.out.println("Error fetching balance: " + err.getMessage());
-            return -1; // Return -1 to indicate an error
+            return -1; 
         } finally {
             try {
                 if (x.connection != null) {

@@ -136,7 +136,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jButton10" min="-2" pref="210" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton11" min="-2" pref="210" max="-2" attributes="0"/>
+                          <Component id="freezeBtn" min="-2" pref="210" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButton12" min="-2" pref="210" max="-2" attributes="0"/>
                       </Group>
@@ -169,7 +169,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jButton13" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="applyLoanBtn" min="-2" pref="210" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jButton14" min="-2" pref="210" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -184,12 +184,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="welcomeText" alignment="0" min="-2" pref="259" max="-2" attributes="0"/>
-                              <Component id="jLabel12" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" pref="205" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="AccountNumberText" min="-2" pref="215" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jLabel12" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jPanel3" max="32767" attributes="0"/>
@@ -255,14 +255,14 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton9" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jButton10" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jButton11" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="freezeBtn" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jButton12" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton13" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="applyLoanBtn" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jButton14" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jButton15" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
@@ -464,6 +464,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
@@ -489,8 +492,11 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton11">
+        <Component class="javax.swing.JButton" name="freezeBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
@@ -506,6 +512,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="freezeBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton12">
           <Properties>
@@ -527,7 +536,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton13">
+        <Component class="javax.swing.JButton" name="applyLoanBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
@@ -543,6 +552,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyLoanBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -568,6 +580,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton15">
           <Properties>

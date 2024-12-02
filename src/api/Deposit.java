@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.UUID;
 
 public class Deposit {
-    public static boolean deposit(double amount) {  // Changed from int to double
+    public static boolean deposit(double amount) {  
         
         root.SqlConnector x = new root.SqlConnector();
         
@@ -28,19 +28,19 @@ public class Deposit {
                 currentBalance = resultSet.getDouble("balance");
             }
 
-            double newBalance = currentBalance + amount;  // New balance after deposit
+            double newBalance = currentBalance + amount;  
             String insertTransactionQuery = 
                 "INSERT INTO tr (transactionId, tdate, accountNumber, remarks, deposit, withdraw, balance) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement insertStmt = x.connection.prepareStatement(insertTransactionQuery);
-            insertStmt.setString(1, transactionId); // transactionId
-            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis())); // current date and time
-            insertStmt.setString(3, accountNumber); // accountNumber
-            insertStmt.setString(4, "DEPOSIT"); // remarks
-            insertStmt.setDouble(5, amount); // deposit (fractional amount)
-            insertStmt.setNull(6, Types.FLOAT); // withdraw (NULL for deposit transactions)
-            insertStmt.setDouble(7, newBalance); // updated balance
+            insertStmt.setString(1, transactionId); 
+            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis())); 
+            insertStmt.setString(3, accountNumber);
+            insertStmt.setString(4, "DEPOSIT"); 
+            insertStmt.setDouble(5, amount); 
+            insertStmt.setNull(6, Types.FLOAT); 
+            insertStmt.setDouble(7, newBalance); 
 
             int rowsInserted = insertStmt.executeUpdate();
 
@@ -48,7 +48,6 @@ public class Deposit {
                 throw new SQLException("Failed to insert the deposit transaction.");
             }
 
-            // Close the connection
             x.connection.close();
 
         } catch (SQLException | IllegalArgumentException err) {

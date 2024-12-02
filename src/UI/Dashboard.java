@@ -5,6 +5,12 @@
 package UI;
 
 import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +30,12 @@ public class Dashboard extends javax.swing.JFrame {
         this.AccountNumberText.setText(root.OBI.envVars.get("accountNumber"));
         this.panNumberText.setText(root.OBI.envVars.get("panNumber"));
         this.phoneNumberText.setText(root.OBI.envVars.get("phoneNumber"));
+        if ("0".equals(root.OBI.envVars.get("isFreeze"))) {
+            freezeBtn.setText("Freeze");
+
+        } else {
+            freezeBtn.setText("Unfreeze");
+        }
     }
 
     /**
@@ -52,9 +64,9 @@ public class Dashboard extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        freezeBtn = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        applyLoanBtn = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
@@ -212,6 +224,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton9.setForeground(new java.awt.Color(204, 255, 204));
         jButton9.setText("Update Details");
         jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel14.setText("Account Services");
@@ -221,12 +238,22 @@ public class Dashboard extends javax.swing.JFrame {
         jButton10.setForeground(new java.awt.Color(204, 255, 204));
         jButton10.setText("Add/Edit Nominee");
         jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
-        jButton11.setBackground(new java.awt.Color(0, 102, 102));
-        jButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(204, 255, 204));
-        jButton11.setText("Freeze Account");
-        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        freezeBtn.setBackground(new java.awt.Color(0, 102, 102));
+        freezeBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        freezeBtn.setForeground(new java.awt.Color(204, 255, 204));
+        freezeBtn.setText("Freeze Account");
+        freezeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        freezeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                freezeBtnActionPerformed(evt);
+            }
+        });
 
         jButton12.setBackground(new java.awt.Color(255, 0, 0));
         jButton12.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -239,11 +266,16 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton13.setBackground(new java.awt.Color(0, 102, 102));
-        jButton13.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(204, 255, 204));
-        jButton13.setText("Apply Loan");
-        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applyLoanBtn.setBackground(new java.awt.Color(0, 102, 102));
+        applyLoanBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        applyLoanBtn.setForeground(new java.awt.Color(204, 255, 204));
+        applyLoanBtn.setText("Apply Loan");
+        applyLoanBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applyLoanBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyLoanBtnActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel15.setText("Loan Services");
@@ -253,6 +285,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton14.setForeground(new java.awt.Color(204, 255, 204));
         jButton14.setText("See Loan Status");
         jButton14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setBackground(new java.awt.Color(0, 102, 102));
         jButton15.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -339,7 +376,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(freezeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -365,7 +402,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(applyLoanBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -377,11 +414,11 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(welcomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(AccountNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(AccountNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -433,13 +470,13 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(freezeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(applyLoanBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -501,7 +538,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             javax.swing.JFrame r = new Dialog("Your balance is " + api.Balance.balance());
             r.setVisible(true);
             r.setTitle("Balance");
@@ -552,17 +589,83 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         UI.DeletePane dp = new UI.DeletePane(this);
         dp.setVisible(true);
+        dp.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        UI.UpdatePane up = new UI.UpdatePane(this);
+        up.setVisible(true);
+        up.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void freezeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_freezeBtnActionPerformed
+        // TODO add your handling code here:
+        root.SqlConnector x = new root.SqlConnector();
+        if ("0".equals(root.OBI.envVars.get("isFreeze"))) {
+            SwingUtilities.invokeLater(() -> {
+                javax.swing.JFrame r = new UI.FreezeAccountPane(this);
+                r.setVisible(true);
+                r.setTitle("Freeze Account");
+                this.setVisible(false);
+                r.setLocationRelativeTo(null);
+            });
+
+        } else {
+            try {
+                String updateQuery = "UPDATE users SET isFreezed = 0 WHERE accountNumber = ?";
+                java.sql.PreparedStatement updateStmt = x.connection.prepareStatement(updateQuery);
+                updateStmt.setString(1, root.OBI.envVars.get("accountNumber"));
+                int rowsUpdated = updateStmt.executeUpdate();
+                freezeBtn.setText("Freeze");
+            } catch (Exception e) {
+
+            }
+            SwingUtilities.invokeLater(() -> {
+                javax.swing.JFrame r = new UI.Dialog("Account Unfreezed Successfully");
+                r.setVisible(true);
+                r.setTitle("Unfreeze Account");
+               
+                r.setLocationRelativeTo(null);
+            });
+        }
+    }//GEN-LAST:event_freezeBtnActionPerformed
+
+    private void applyLoanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLoanBtnActionPerformed
+        // TODO add your handling code here:
+        UI.ApplyLoanPane ap = new UI.ApplyLoanPane(this);
+        ap.setVisible(true);
+        ap.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_applyLoanBtnActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        UI.LoanStatusPane ls = new UI.LoanStatusPane(this);
+        ls.setVisible(true);
+        ls.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        UI.NomineePane np = new UI.NomineePane(this);
+        np.setVisible(true);
+        np.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AccountNumberText;
     private javax.swing.JLabel aadharNumberText;
+    private javax.swing.JButton applyLoanBtn;
+    private javax.swing.JButton freezeBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;

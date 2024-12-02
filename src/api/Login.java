@@ -19,6 +19,7 @@ public class Login {
                 root.OBI.envVars.put("accountNumber", r.getString("accountNumber"));
                 root.OBI.envVars.put("panNumber", r.getString("pan"));
                 root.OBI.envVars.put("aadharNumber", r.getString("aadhar"));
+                root.OBI.envVars.put("isFreeze", r.getString("isFreezed"));
                 return true;
             }
 

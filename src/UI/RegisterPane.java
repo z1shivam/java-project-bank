@@ -16,6 +16,7 @@ public class RegisterPane extends javax.swing.JFrame {
 
     /**
      * Creates new form RegisterFrame
+     * @param prevPane
      */
     public RegisterPane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
@@ -362,6 +363,7 @@ public class RegisterPane extends javax.swing.JFrame {
             this.prevPane.setVisible(true);
             this.dispose();
         } catch (Exception err) {
+            System.out.println(err);
             SwingUtilities.invokeLater(() -> {
                 javax.swing.JFrame r = new Dialog(err.toString());
                 r.setVisible(true);

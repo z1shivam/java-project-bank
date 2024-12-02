@@ -4,6 +4,8 @@
  */
 package UI;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author prana
@@ -16,6 +18,7 @@ public class SameBankTransferPane extends javax.swing.JFrame {
     public SameBankTransferPane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
+        this.jLabel6.setText("Account Number: " + root.OBI.envVars.get("accountNumber"));
     }
 
     /**
@@ -163,6 +166,18 @@ public class SameBankTransferPane extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        boolean response = api.BankTransfer.bt(jTextField2.getText(),Double.parseDouble(jTextField1.getText()),"NULL","Same Bank Transfer");
+
+        if (response){
+             SwingUtilities.invokeLater(() -> {
+                javax.swing.JFrame r = new Dialog("Amount "+jTextField1.getText() +" Transaction Successful!!");
+                r.setVisible(true);
+                r.setTitle(" Transaction Successful!!");
+                r.setLocationRelativeTo(null);
+            });
+             this.dispose();
+             prevPane.setVisible(true);
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

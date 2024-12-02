@@ -4,6 +4,10 @@
  */
 package UI;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author prana
@@ -12,10 +16,49 @@ public class TransactionHistoryPane extends javax.swing.JFrame {
     javax.swing.JFrame prevPane;
     /**
      * Creates new form TransactionHistoryPane
+     * @param prevPane
      */
     public TransactionHistoryPane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
+        fillTranHistoryTable();
+        
+    }
+    
+    private void fillTranHistoryTable() {
+        // Fetch the mini statement data
+        List<String> transactions = api.TranStatus.getTranStatus();
+
+        // Create a DefaultTableModel with columns for the table
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Transaction ID");
+        tableModel.addColumn("Date");
+        tableModel.addColumn("Remarks");
+        tableModel.addColumn("Deposit");
+        tableModel.addColumn("Withdraw");
+        tableModel.addColumn("Balance");
+
+        // Check if there are transactions to display
+        if (transactions != null) {
+            // Iterate over the transactions and add them to the table model
+            for (String transaction : transactions) {
+                String[] transactionDetails = transaction.split(", "); // Split by comma and space
+                String transactionId = transactionDetails[0].split(": ")[1];
+                String date = transactionDetails[1].split(": ")[1];
+                String remarks = transactionDetails[2].split(": ")[1];
+                String deposit = transactionDetails[3].split(": ")[1];
+                String withdraw = transactionDetails[4].split(": ")[1];
+                String balance = transactionDetails[5].split(": ")[1];
+
+                // Add row to the table model
+                tableModel.addRow(new Object[]{transactionId, date, remarks, deposit, withdraw, balance});
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error fetching mini statement.");
+        }
+
+        // Set the table model to the jTable1
+        jTable1.setModel(tableModel);
     }
 
     /**

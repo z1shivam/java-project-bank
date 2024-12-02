@@ -12,48 +12,51 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author prana
  */
-public class TransactionStatusPane extends javax.swing.JFrame {
+public class LoanStatusPane extends javax.swing.JFrame {
     javax.swing.JFrame prevPane;
     /**
-     * Creates new form TransactionStatusPane
+     * Creates new form LoanStatus
      * @param prevPane
      */
-    public TransactionStatusPane(javax.swing.JFrame prevPane) {
-        
+    public LoanStatusPane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
-        fillTranStatusTable();
+        fillMiniStatementTable();
     }
     
-    private void fillTranStatusTable() {
+    private void fillMiniStatementTable() {
         // Fetch the mini statement data
-        List<String> transactions = api.TranStatus.getTranStatus();
+        List<String> loanStatus = api.LoanStatus.getLoanStatus();
+        System.out.println(loanStatus);
 
         // Create a DefaultTableModel with columns for the table
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Transaction ID");
-        tableModel.addColumn("Date");
-        tableModel.addColumn("Remarks");
-        tableModel.addColumn("Deposit");
-        tableModel.addColumn("Withdraw");
-        tableModel.addColumn("Balance");
+        tableModel.addColumn("Account No");
+        tableModel.addColumn("Loan ID");
+        tableModel.addColumn("Amount");
+        tableModel.addColumn("Rate");
+        tableModel.addColumn("Time");
+        tableModel.addColumn("SI");
+        tableModel.addColumn("Loan Amount");
 
         // Check if there are transactions to display
-        if (transactions != null) {
+        if (loanStatus != null) {
             // Iterate over the transactions and add them to the table model
-            for (String transaction : transactions) {
-                String[] transactionDetails = transaction.split(", "); // Split by comma and space
-                String transactionId = transactionDetails[0].split(": ")[1];
-                String date = transactionDetails[1].split(": ")[1];
-                String remarks = transactionDetails[2].split(": ")[1];
-                String deposit = transactionDetails[3].split(": ")[1];
-                String withdraw = transactionDetails[4].split(": ")[1];
-                String balance = transactionDetails[5].split(": ")[1];
+            for (String loan : loanStatus) {
+                String[] loanDetails = loan.split(", "); // Split by comma and space
+                String accNumber = loanDetails[0].split(": ")[1];
+                String loanId = loanDetails[1].split(": ")[1];
+                String amount = loanDetails[2].split(": ")[1];
+                String rate = loanDetails[3].split(": ")[1];
+                String time = loanDetails[4].split(": ")[1];
+                String si = loanDetails[5].split(": ")[1];
+                String lAmount = loanDetails[6].split(": ")[1];
 
                 // Add row to the table model
-                tableModel.addRow(new Object[]{transactionId, date, remarks, deposit, withdraw, balance});
+                tableModel.addRow(new Object[]{accNumber, loanId, amount, rate, time, si, lAmount});
             }
         } else {
+//            System.out.println("12345");
             JOptionPane.showMessageDialog(this, "Error fetching mini statement.");
         }
 
@@ -73,11 +76,10 @@ public class TransactionStatusPane extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +100,7 @@ public class TransactionStatusPane extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
@@ -106,10 +108,17 @@ public class TransactionStatusPane extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jLabel2.setText("Transaction Status");
+        jButton2.setBackground(new java.awt.Color(0, 102, 102));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("↜ go back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Here is the summary of your transactions:");
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel2.setText("Loan Status");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,15 +129,6 @@ public class TransactionStatusPane extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        jButton2.setBackground(new java.awt.Color(0, 102, 102));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("↜ go back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,10 +142,9 @@ public class TransactionStatusPane extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 20, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -153,11 +152,9 @@ public class TransactionStatusPane extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
-                .addGap(37, 37, 37)
+                .addGap(65, 65, 65)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(146, Short.MAX_VALUE))
         );
@@ -166,11 +163,11 @@ public class TransactionStatusPane extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,16 +187,12 @@ public class TransactionStatusPane extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

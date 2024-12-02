@@ -43,13 +43,13 @@ public class Withdraw {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement insertStmt = x.connection.prepareStatement(insertTransactionQuery);
-            insertStmt.setString(1, transactionId); // transactionId
-            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis())); // tdate with millisecond precision
-            insertStmt.setString(3, accountNumber); // accountNumber
-            insertStmt.setString(4, "WITHDRAWAL"); // remarks
-            insertStmt.setNull(5, java.sql.Types.DECIMAL); // deposit is null for withdrawals
-            insertStmt.setDouble(6, amount); // withdrawal amount
-            insertStmt.setDouble(7, newBalance); // updated balance
+            insertStmt.setString(1, transactionId); 
+            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis())); 
+            insertStmt.setString(3, accountNumber);
+            insertStmt.setString(4, "WITHDRAWAL"); 
+            insertStmt.setNull(5, java.sql.Types.DECIMAL); 
+            insertStmt.setDouble(6, amount); 
+            insertStmt.setDouble(7, newBalance); 
 
             int rowsInserted = insertStmt.executeUpdate();
 

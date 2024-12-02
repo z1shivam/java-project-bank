@@ -16,6 +16,7 @@ public class UserDetails {
     public String password;
     public long accountNumber;
 
+
     public UserDetails(String fullName, String dob, String address,
             String pan, String aadhar, String phone, boolean isMarried, boolean isEmp,
             String gender, String email, String username, String password, long accountNumber) {
@@ -31,6 +32,7 @@ public class UserDetails {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.accountNumber = accountNumber;
     }
 
     @Override

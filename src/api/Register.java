@@ -32,7 +32,10 @@ public class Register {
                             + "'" + userDetails.email + "', "
                             + "'" + userDetails.username + "', "
                             + "'" + userDetails.password + "', "
-                            + userDetails.accountNumber + ");"
+                            + "'" + userDetails.accountNumber + "', "
+                            + "'" + 0 + "',"
+                            + "'" + 0 + "', " +
+                            ");"
                     );
 
             String transactionId = java.util.UUID.randomUUID().toString();
@@ -41,13 +44,13 @@ public class Register {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             java.sql.PreparedStatement insertStmt = x.connection.prepareStatement(insertTransactionQuery);
-            insertStmt.setString(1, transactionId); // transactionId
-            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis())); // tdate (current date)
-            insertStmt.setLong(3, userDetails.accountNumber); // accountNumber
-            insertStmt.setString(4, "Account Created"); // remarks
-            insertStmt.setDouble(5, 0.0); // deposit
-            insertStmt.setNull(6, java.sql.Types.FLOAT); // withdraw
-            insertStmt.setDouble(7, 0.0); // balance
+            insertStmt.setString(1, transactionId);
+            insertStmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+            insertStmt.setLong(3, userDetails.accountNumber);
+            insertStmt.setString(4, "Account Created");
+            insertStmt.setDouble(5, 0.0); 
+            insertStmt.setNull(6, java.sql.Types.FLOAT);
+            insertStmt.setDouble(7, 0.0); 
 
             int rowsInserted = insertStmt.executeUpdate();
             if (rowsInserted == 0) {

@@ -12,10 +12,13 @@ public class NomineePane extends javax.swing.JFrame {
     javax.swing.JFrame prevPane;
     /**
      * Creates new form NomineePane
+     * @param prevPane
      */
     public NomineePane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
+        this.jLabel2.setText("Hi, " + root.OBI.envVars.get("fullName"));
+        this.jLabel4.setText("Account Number: " + root.OBI.envVars.get("accountNumber"));
     }
 
     /**
@@ -78,17 +81,17 @@ public class NomineePane extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel2.setText("Hi, SHIVAM KUMAR");
 
-        jLabel5.setText("Nominee Account Number");
+        jLabel5.setText("Nominee Name");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jLabel4.setText("ACCOUNT NUMBER: 123456789087");
 
-        jLabel3.setText("Enter Amount (in ₹)");
+        jLabel3.setText("Nominee Relation with User");
 
         jButton1.setBackground(new java.awt.Color(0, 102, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Deposit");
+        jButton1.setText("Add Nominee");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -122,21 +125,21 @@ public class NomineePane extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
-                .addGap(87, 87, 87)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,8 +173,33 @@ public class NomineePane extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       
+        root.SqlConnector x = new root.SqlConnector();
+        
+        try {
+            String nomineeName = this.jTextField2.getText();
+            String relation = this.jTextField1.getText();
+            
+            int hit = x.connection.createStatement().executeUpdate("INSERT INTO nominee VALUES ("
+                    + "'" + root.OBI.envVars.get("accountNumber")  + "', "
+                    + "'" + root.OBI.envVars.get("fullName") + "', "
+                    + "'" + nomineeName + "', " 
+                    + "'" + relation +"'" 
+                    +");");
+            
+            if (hit == 1) {
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    javax.swing.JFrame r = new Dialog("Nominee Added Successfully.");
+                    r.setVisible(true);
+                    r.setTitle("Nominee");
+                    r.setLocationRelativeTo(null);
+                });
+            }
+            
+            x.connection.close();
+        }
+        catch (java.sql.SQLException err) {
+            System.out.println("ERROR: " + err);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

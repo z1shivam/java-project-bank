@@ -12,10 +12,12 @@ public class DeletePane extends javax.swing.JFrame {
     javax.swing.JFrame prevPane;
     /**
      * Creates new form DeletePane
+     * @param prevPane
      */
     public DeletePane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
+        
     }
 
     /**
@@ -83,7 +85,7 @@ public class DeletePane extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel3.setText("Hi, SHIVAM KUMAR");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option", "Withdraw", "A2A Transfer (Self Bank)", "A2A Trasnfer (Other Bank)" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Withdraw", "A2A Transfer (Self Bank)", "A2A Trasnfer (Other Bank)" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -103,6 +105,11 @@ public class DeletePane extends javax.swing.JFrame {
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
         jButton12.setText("Delete Account");
         jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,6 +187,10 @@ public class DeletePane extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments

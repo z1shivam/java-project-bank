@@ -1,12 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package api;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MiniStatement {
-
-    public static List<String> getMiniStatement() {
+/**
+ *
+ * @author prana
+ */
+public class TranStatus {
+    public static List<String> getTranStatus() {
         root.SqlConnector x = new root.SqlConnector();
         List<String> transactions = new ArrayList<>();
 
@@ -19,7 +29,7 @@ public class MiniStatement {
 
             String fetchTransactionsQuery = 
                 "SELECT transactionId, tdate, remarks, deposit, withdraw, balance " +
-                "FROM tr WHERE accountNumber = ? ORDER BY tdate DESC, transactionId DESC LIMIT 5";
+                "FROM tr WHERE accountNumber = ? ORDER BY tdate DESC";  //, transactionId DESC LIMIT 5
 
             PreparedStatement fetchTransactionsStmt = x.connection.prepareStatement(fetchTransactionsQuery);
             fetchTransactionsStmt.setString(1, accountNumber);

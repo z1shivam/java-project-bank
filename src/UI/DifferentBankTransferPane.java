@@ -4,18 +4,24 @@
  */
 package UI;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author prana
  */
 public class DifferentBankTransferPane extends javax.swing.JFrame {
+
     javax.swing.JFrame prevPane;
+
     /**
      * Creates new form DifferentBankTransferPane
      */
     public DifferentBankTransferPane(javax.swing.JFrame prevPane) {
         this.prevPane = prevPane;
         initComponents();
+        this.jLabel6.setText("Account Number: " + root.OBI.envVars.get("accountNumber"));
+
     }
 
     /**
@@ -182,14 +188,26 @@ public class DifferentBankTransferPane extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+         // TODO add your handling code here:
+        boolean response = api.BankTransfer.bt(jTextField3.getText(),Double.parseDouble(jTextField1.getText()),jTextField2.getText(),"Different Bank Transfer");
+
+        if (response){
+             SwingUtilities.invokeLater(() -> {
+                javax.swing.JFrame r = new Dialog("Amount "+jTextField1.getText() +" Transaction Successful!!");
+                r.setVisible(true);
+                r.setTitle(" Transaction Successful!!");
+                r.setLocationRelativeTo(null);
+            });
+             this.dispose();
+             prevPane.setVisible(true);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
